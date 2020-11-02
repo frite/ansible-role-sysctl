@@ -1,0 +1,19 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+  - name: Register sysctl value
+    sysctl:
+      name: "fs.protected_symlinks"
+      value: "1"
+      sysctl_set: no
+      state: present
+    register: sysctl_results
+
+  - name: Assert sysctl value is set.
+    assert:
+      that: sysctl_results.changed is false

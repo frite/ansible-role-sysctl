@@ -1,0 +1,8 @@
+---
+- name: Sysctl settings
+  sysctl:
+    name: "{{ item }}"
+    value: "{{ sysctl_settings[item] }}"
+    sysctl_set: yes
+  with_items:
+    - "{{ sysctl_settings | list }}"
